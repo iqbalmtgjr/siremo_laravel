@@ -119,7 +119,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="4" class="text-end">Total Harga Sewa</th>
-                                                        <th colspan="3">Rp.
+                                                        <th colspan="4">Rp.
                                                             {{ number_format($transaksis->sum('total_harga'), 0, ',', '.') }}
                                                         </th>
                                                     </tr>
