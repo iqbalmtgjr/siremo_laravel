@@ -3,6 +3,7 @@
 namespace App\Livewire\Transaksi;
 
 use App\Models\User;
+use App\Models\Mitra;
 use Livewire\Component;
 use App\Models\Hargasewa;
 use App\Models\Kendaraan;
@@ -66,7 +67,8 @@ class IndexTransaksi extends Component
                     })->orderBy('id', 'DESC')->paginate($this->paginate),
                 'kendaraans' => $this->kendaraans,
                 'total' => $this->total,
-                'users' => $this->users
+                'users' => $this->users,
+                'mitra' => Mitra::find(auth()->user()->mitra_id)
             ]
         );
     }

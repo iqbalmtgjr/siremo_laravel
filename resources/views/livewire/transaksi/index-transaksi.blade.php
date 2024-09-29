@@ -29,7 +29,7 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="app-content-header">
+                {{-- <div class="app-content-header">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-6">
@@ -37,15 +37,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="app-content">
+                </div> --}}
+                <div class="app-content mt-4">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card mb-4">
                                     <div class="card-body" wire:ignore>
                                         <center>
-                                            <h2 class="align-center">Input Transaksi</h2>
+                                            @if ($mitra->logo != null)
+                                                <img src="{{ asset('storage/mitra/logo/' . $mitra->logo . '') }}"
+                                                    alt="Logo Mitra"
+                                                    style="width: 100px; height: 100px; object-fit: contain;">
+                                            @endif
+                                            <h2 class="align-center">Input Transaksi {{ $mitra->nama }}</h2>
                                         </center> <br>
                                         <div wire:ignore.self>
                                             <form wire:submit.prevent="store" enctype="multipart/form-data">
@@ -215,8 +220,7 @@
                                                                             wire:click="viewktp({{ $transaksi->user_id }})">
                                                                             <i class="bi bi-eye"></i> Lihat KTP
                                                                         </a>
-                                                                        <a href="#"
-                                                                            class="btn btn-warning btn-sm"
+                                                                        <a href="#" class="btn btn-warning btn-sm"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#edit"
                                                                             wire:click="edit({{ $transaksi->id }})">
