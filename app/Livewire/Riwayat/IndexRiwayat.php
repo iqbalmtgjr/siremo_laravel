@@ -18,8 +18,11 @@ class IndexRiwayat extends Component
     public $search;
     public $total;
 
+    public $riwayat;
 
-    // #[Validate('required', as: 'Tanggal Awal')]
+    #[Validate('required')]
+    public $pembayaran;
+
     public $tgl_awal;
 
     // #[Validate('required', as: 'Tanggal Akhir')]
@@ -88,5 +91,23 @@ class IndexRiwayat extends Component
         ]);
 
         $this->dispatch('filtered');
+    }
+
+    public function edit($id)
+    {
+        $this->riwayat = Transaksi::find($id);
+
+        $this->pembayaran = $this->riwayat->pembayaran;
+    }
+
+    public function update()
+    {
+        $this->validate();
+        $this->riwayat->update([
+            'pembayaran' => $this->pembayaran
+        ]);
+
+        toastr()->success('Status pembayaran berhasil diperbarui');
+        return redirect('/riwayat');
     }
 }

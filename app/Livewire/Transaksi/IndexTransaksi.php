@@ -110,7 +110,7 @@ class IndexTransaksi extends Component
 
     public function viewktp($id)
     {
-        $this->transaksi_ktp = Transaksi::find($id);
+        $this->transaksi_ktp = User::find($id);
         // dd($this->transaksi_ktp);
         $this->lihat_ktp = $this->transaksi_ktp->ktp;
     }

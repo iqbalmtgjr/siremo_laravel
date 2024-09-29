@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Mitra;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Hash;
@@ -14,12 +15,13 @@ use Illuminate\Support\Facades\Validator;
 class IndexPenggunaMitra extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
 
     public $mitra, $mitra_id, $user, $user_mitra, $user_id, $total, $paginate = 10;
 
-    public $search, $nama, $username, $email, $no_hp, $role, $password, $password_confirmation;
+    public $search, $nama, $username, $email, $no_hp, $role, $ktp, $lihat_ktp, $password, $password_confirmation, $user_ktp;
 
     public function render()
     {
@@ -57,10 +59,11 @@ class IndexPenggunaMitra extends Component
                 'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($this->user)],
                 'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user)],
                 'role' => ['required'],
+                'ktp' => ['image|max:1024'],
             ],
         )->validate();
 
-        User::create([
+        $pengg = User::create([
             'mitra_id' => auth()->user()->mitra_id,
             'nama' => $this->nama,
             'username' => $this->username,
@@ -69,6 +72,12 @@ class IndexPenggunaMitra extends Component
             'password' => Hash::make($this->password),
             'role' => $this->role,
         ]);
+
+        if ($this->ktp != null) {
+            $filename = $this->ktp->hashName();
+            $this->ktp->storeAs('pengguna/ktp/', $filename, 'public');
+            $pengg->update(['ktp' => $filename]);
+        }
 
         // $this->dispatch('created');
         toastr()->success('Pengguna berhasil ditambahkan');
@@ -99,6 +108,13 @@ class IndexPenggunaMitra extends Component
         }
     }
 
+    public function viewktp($id)
+    {
+        $this->user_ktp = User::find($id);
+        // dd($this->transaksi_ktp);
+        $this->lihat_ktp = $this->user_ktp->ktp;
+    }
+
     public function updateMitra()
     {
         // dd($this->mitra_id);
@@ -124,6 +140,7 @@ class IndexPenggunaMitra extends Component
                 'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($this->user)],
                 'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user)],
                 'role' => ['required'],
+                'ktp' => ['image|max:1024'],
             ],
 
         )->validate();
@@ -135,6 +152,12 @@ class IndexPenggunaMitra extends Component
             'no_hp' => $this->no_hp,
             'role' => $this->role
         ]);
+
+        if ($this->ktp != null) {
+            $filename = $this->ktp->hashName();
+            $this->ktp->storeAs('pengguna/ktp/', $filename, 'public');
+            $this->user->update(['ktp' => $filename]);
+        }
 
         toastr()->success('Pengguna berhasil diperbarui');
         return redirect('/penggunamitra');
@@ -151,5 +174,10 @@ class IndexPenggunaMitra extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function resetInput()
+    {
+        $this->reset();
     }
 }

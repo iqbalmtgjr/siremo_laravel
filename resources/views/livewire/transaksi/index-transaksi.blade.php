@@ -85,6 +85,12 @@
                                                     @error('pengguna_id')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
+                                                    <div class="mt-2">
+                                                        <button type="button" class="btn btn-sm btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#tambah">
+                                                            Tambah Pengguna Baru
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="lama_sewa" class="form-label">Lama Sewa</label>
@@ -108,7 +114,7 @@
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3">
+                                                {{-- <div class="mb-3">
                                                     <label for="ktp" class="form-label">Upload KTP
                                                         Pengguna</label>
                                                     <div x-data="{ uploading: false, progress: 0 }"
@@ -133,7 +139,7 @@
                                                         <img class="mt-3" width="200"
                                                             src="{{ $ktp->temporaryUrl() }}">
                                                     @endif
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="d-flex justify-content-end">
                                                     <button type="submit" wire:click="store"
@@ -204,11 +210,9 @@
                                                                             wire:click="selesai({{ $transaksi->id }})">
                                                                             <i class="bi bi-check-circle"></i> Selesai
                                                                         </a>
-                                                                        <a href="#"
-                                                                            class="btn btn-primary btn-sm"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#ktp"
-                                                                            wire:click="viewktp({{ $transaksi->id }})">
+                                                                        <a href="#" class="btn btn-primary btn-sm"
+                                                                            data-bs-toggle="modal" data-bs-target="#ktp"
+                                                                            wire:click="viewktp({{ $transaksi->user_id }})">
                                                                             <i class="bi bi-eye"></i> Lihat KTP
                                                                         </a>
                                                                         <a href="#"
@@ -248,7 +252,7 @@
             </div>
         </div>
     </div>
-    {{-- @include('livewire.transaksi.modal-create') --}}
+    @include('livewire.penggunamitra.modal-create')
     @include('livewire.transaksi.modal-edit')
     @include('livewire.transaksi.modal-ktp')
     <script type="text/javascript">

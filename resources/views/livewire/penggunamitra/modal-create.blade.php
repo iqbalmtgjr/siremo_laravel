@@ -54,6 +54,28 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="ktp" class="form-label">Upload KTP</label>
+                        <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
+                            x-on:livewire-upload-finish="uploading = false"
+                            x-on:livewire-upload-cancel="uploading = false"
+                            x-on:livewire-upload-error="uploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress">
+                            <!-- File Input -->
+                            <input type="file" class="form-control" wire:model="ktp">
+                            @error('ktp')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <!-- Progress Bar -->
+                            <div x-show="uploading">
+                                <progress max="100" x-bind:value="progress"></progress>
+                            </div>
+                        </div>
+                        @if ($ktp)
+                            <img class="mt-3" width="200" src="{{ $ktp->temporaryUrl() }}">
+                        @endif
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" wire:model="password"
                             placeholder="Masukkan password...">

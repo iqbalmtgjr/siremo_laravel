@@ -73,6 +73,7 @@
                                                         <th>Total Harga Sewa</th>
                                                         <th>Tanggal Sewa</th>
                                                         <th>Pembayaran</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -96,6 +97,14 @@
                                                                     class="badge rounded-pill bg-{{ $transaksi->pembayaran == 'lunas' ? 'success' : 'danger' }} text-light">
                                                                     {{ ucfirst($transaksi->pembayaran) }}
                                                                 </span>
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:void(0)"
+                                                                    class="btn btn-primary btn-sm"
+                                                                    data-bs-toggle="modal" data-bs-target="#edit"
+                                                                    wire:click="edit({{ $transaksi->id }})">
+                                                                    <i class="bi bi-pencil"></i> Edit
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -128,4 +137,5 @@
             </div>
         </div>
     </div>
+    @include('livewire.riwayat.modal-edit')
 </div>

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role',
         'no_hp',
         'avatar',
+        'ktp',
         'password',
     ];
 

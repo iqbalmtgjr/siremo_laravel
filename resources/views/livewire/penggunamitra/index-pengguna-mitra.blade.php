@@ -25,8 +25,9 @@
                                                 aria-describedby="basic-addon1">
                                         </div>
                                         <div class="ms-2">
-                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#tambah">
+                                            <a href="javascript:void(0)" wire:click="resetInput"
+                                                class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#tambah">
                                                 <i class="bi bi-plus-circle"></i> Tambah
                                             </a>
                                         </div>
@@ -70,6 +71,11 @@
                                                                             wire:click="edit({{ $pengguna->id }})">
                                                                             <i class="bi bi-pencil-square"></i> Edit
                                                                         </a>
+                                                                        <a href="#" class="btn btn-primary btn-sm"
+                                                                            data-bs-toggle="modal" data-bs-target="#ktp"
+                                                                            wire:click="viewktp({{ $pengguna->id }})">
+                                                                            <i class="bi bi-eye"></i> Lihat KTP
+                                                                        </a>
                                                                         <a href="#" class="btn btn-danger btn-sm"
                                                                             wire:click="delete({{ $pengguna->id }})"
                                                                             wire:confirm="Apakah anda yakin ingin menghapus data ini?">
@@ -99,8 +105,9 @@
             </div>
         </div>
     </div>
-    @include('livewire.pengguna.modal-create')
-    @include('livewire.pengguna.modal-edit')
+    @include('livewire.penggunamitra.modal-create')
+    @include('livewire.penggunamitra.modal-edit')
+    @include('livewire.penggunamitra.modal-ktp')
     <script type="text/javascript">
         document.addEventListener('livewire:init', () => {
             Livewire.on('created', () => {
