@@ -9,16 +9,29 @@
                     </h1>
                 </a> </div>
             <div class="card-body register-card-body">
-                <p class="register-box-msg">Daftar SIREMO</p>
-                <form method="POST" action="{{ route('register') }}">
+                <p class="register-box-msg">Daftar Mitra SIREMO</p>
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
-
+                    <div class="input-group mb-1">
+                        <div class="form-floating">
+                            <input id="registerMitra" type="text"
+                                class="form-control @error('nama_mitra') is-invalid @enderror" name="nama_mitra"
+                                value="{{ old('nama_mitra') }}" placeholder="">
+                            <label for="registerMitra">Nama Mitra</label>
+                            @error('nama_mitra')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-group-text"> <span class="bi bi-person"></span> </div>
+                    </div>
                     <div class="input-group mb-1">
                         <div class="form-floating">
                             <input id="registerFullName" type="text"
                                 class="form-control @error('nama') is-invalid @enderror" name="nama"
                                 value="{{ old('nama') }}" placeholder="">
-                            <label for="registerFullName">Nama Lengkap</label>
+                            <label for="registerFullName">Nama Pemilik</label>
                             @error('nama')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -57,10 +70,10 @@
                     </div>
                     <div class="input-group mb-1">
                         <div class="form-floating">
-                            <input id="registerFullName" type="text"
+                            <input id="registerHp" type="text"
                                 class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
                                 value="{{ old('no_hp') }}" placeholder="">
-                            <label for="registerFullName">No HP</label>
+                            <label for="registerHp">No HP</label>
                             @error('no_hp')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -68,6 +81,32 @@
                             @enderror
                         </div>
                         <div class="input-group-text"> <span class="bi bi-phone"></span> </div>
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="form-floating">
+                            <textarea id="registerAlamat" rows="5" class="form-control @error('alamat_mitra') is-invalid @enderror"
+                                name="alamat_mitra">{{ old('alamat_mitra') }}</textarea>
+                            <label for="registerAlamat">Alamat Mitra</label>
+                            @error('alamat_mitra')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-group-text"> <span class="bi bi-map"></span> </div>
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="form-floating">
+                            <input id="registerLogo" type="file"
+                                class="form-control @error('logo_mitra') is-invalid @enderror" name="logo_mitra">
+                            <label for="registerLogo">Upload Logo Mitra</label>
+                            @error('logo_mitra')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-group-text"> <span class="bi bi-image"></span> </div>
                     </div>
                     <div class="input-group mb-1">
                         <div class="form-floating">

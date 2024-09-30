@@ -43,83 +43,98 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card mb-4">
-                                    <div class="card-body" wire:ignore>
-                                        <center>
-                                            @if ($mitra->logo != null)
-                                                <img src="{{ asset('storage/mitra/logo/' . $mitra->logo . '') }}"
-                                                    alt="Logo Mitra"
-                                                    style="width: 100px; height: 100px; object-fit: contain;">
-                                            @endif
-                                            <h2 class="align-center">Input Transaksi {{ $mitra->nama }}</h2>
-                                        </center> <br>
-                                        <div wire:ignore.self>
-                                            <form wire:submit.prevent="store" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="kendaraan_id" class="form-label">Kendaraan</label>
-                                                    <div wire:ignore>
-                                                        <select class="form-select select2" style="width: 100%"
-                                                            wire:model="kendaraan_id">
-                                                            <option value="">-- Pilih Kendaraan --
-                                                            </option>
-                                                            @foreach ($kendaraans as $kendaraan)
-                                                                <option value="{{ $kendaraan->id }}">
-                                                                    {{ $kendaraan->merk }} - {{ $kendaraan->plat }}
+                                    @if ($mitra->valid == 0)
+                                        <div class="card-body" wire:ignore>
+                                            <center>
+                                                @if ($mitra->logo != null)
+                                                    <img src="{{ asset('storage/mitra/logo/' . $mitra->logo . '') }}"
+                                                        alt="Logo Mitra"
+                                                        style="width: 100px; height: 100px; object-fit: contain;">
+                                                @endif
+                                                <h2 class="align-center text-danger">{{ $mitra->nama }} belum
+                                                    divalidasi admin</h2>
+                                                <p>Untuk melakukan transaksi mitra anda harus divalidasi admin. Silahkan
+                                                    hubungi admin via Whatapp : 08996979079</p>
+                                            </center> <br>
+                                        </div>
+                                    @else
+                                        <div class="card-body" wire:ignore>
+                                            <center>
+                                                @if ($mitra->logo != null)
+                                                    <img src="{{ asset('storage/mitra/logo/' . $mitra->logo . '') }}"
+                                                        alt="Logo Mitra"
+                                                        style="width: 100px; height: 100px; object-fit: contain;">
+                                                @endif
+                                                <h2 class="align-center">Input Transaksi {{ $mitra->nama }}</h2>
+                                            </center> <br>
+                                            <div wire:ignore.self>
+                                                <form wire:submit.prevent="store" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="kendaraan_id" class="form-label">Kendaraan</label>
+                                                        <div wire:ignore>
+                                                            <select class="form-select select2" style="width: 100%"
+                                                                wire:model="kendaraan_id">
+                                                                <option value="">-- Pilih Kendaraan --
                                                                 </option>
-                                                            @endforeach
-                                                        </select>
+                                                                @foreach ($kendaraans as $kendaraan)
+                                                                    <option value="{{ $kendaraan->id }}">
+                                                                        {{ $kendaraan->merk }} - {{ $kendaraan->plat }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        @error('kendaraan_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
-                                                    @error('kendaraan_id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <div wire:ignore>
-                                                        <label for="pengguna" class="form-label">Pengguna</label>
-                                                        <select style="width: 100%" class="form-select select2"
-                                                            id="pengguna-id" wire:model="pengguna_id">
-                                                            <option value="">-- Pilih Pengguna --
-                                                            </option>
-                                                            @foreach ($users as $user)
-                                                                <option value="{{ $user->id }}">
-                                                                    {{ $user->nama }}
+                                                    <div class="mb-3">
+                                                        <div wire:ignore>
+                                                            <label for="pengguna" class="form-label">Pengguna</label>
+                                                            <select style="width: 100%" class="form-select select2"
+                                                                id="pengguna-id" wire:model="pengguna_id">
+                                                                <option value="">-- Pilih Pengguna --
                                                                 </option>
-                                                            @endforeach
-                                                        </select>
+                                                                @foreach ($users as $user)
+                                                                    <option value="{{ $user->id }}">
+                                                                        {{ $user->nama }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        @error('pengguna_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                        <div class="mt-2">
+                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                                data-bs-toggle="modal" data-bs-target="#tambah">
+                                                                Tambah Pengguna Baru
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    @error('pengguna_id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                    <div class="mt-2">
-                                                        <button type="button" class="btn btn-sm btn-primary"
-                                                            data-bs-toggle="modal" data-bs-target="#tambah">
-                                                            Tambah Pengguna Baru
-                                                        </button>
+                                                    <div class="mb-3">
+                                                        <label for="lama_sewa" class="form-label">Lama Sewa</label>
+                                                        <input type="number" class="form-control" id="lama_sewaa"
+                                                            wire:model="lama_sewa" placeholder="Masukkan lama sewa...">
+                                                        <small class="text-warning">Dalam hari</small> <br>
+                                                        @error('lama_sewa')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="lama_sewa" class="form-label">Lama Sewa</label>
-                                                    <input type="number" class="form-control" id="lama_sewaa"
-                                                        wire:model="lama_sewa" placeholder="Masukkan lama sewa...">
-                                                    <small class="text-warning">Dalam hari</small> <br>
-                                                    @error('lama_sewa')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
 
-                                                <div class="mb-3">
-                                                    <label for="pembayaran" class="form-label">Pembayaran</label>
-                                                    <select class="form-select" id="pembayarann"
-                                                        wire:model="pembayaran">
-                                                        <option value="">-- Pilih Pembayaran --</option>
-                                                        <option value="lunas">Lunas</option>
-                                                        <option value="belum_lunas">Belum Lunas</option>
-                                                    </select>
-                                                    @error('pembayaran')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                {{-- <div class="mb-3">
+                                                    <div class="mb-3">
+                                                        <label for="pembayaran" class="form-label">Pembayaran</label>
+                                                        <select class="form-select" id="pembayarann"
+                                                            wire:model="pembayaran">
+                                                            <option value="">-- Pilih Pembayaran --</option>
+                                                            <option value="lunas">Lunas</option>
+                                                            <option value="belum_lunas">Belum Lunas</option>
+                                                        </select>
+                                                        @error('pembayaran')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    {{-- <div class="mb-3">
                                                     <label for="ktp" class="form-label">Upload KTP
                                                         Pengguna</label>
                                                     <div x-data="{ uploading: false, progress: 0 }"
@@ -146,13 +161,14 @@
                                                     @endif
                                                 </div> --}}
 
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="submit" wire:click="store"
-                                                        class="btn btn-primary btn-sm">Simpan</button>
-                                                </div>
-                                            </form>
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="submit" wire:click="store"
+                                                            class="btn btn-primary btn-sm">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 <div class="card mb-4">
                                     <div class="d-flex justify-content-between align-items-center px-3 pt-3 m-2">
@@ -216,11 +232,13 @@
                                                                             <i class="bi bi-check-circle"></i> Selesai
                                                                         </a>
                                                                         <a href="#" class="btn btn-primary btn-sm"
-                                                                            data-bs-toggle="modal" data-bs-target="#ktp"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#ktp"
                                                                             wire:click="viewktp({{ $transaksi->user_id }})">
                                                                             <i class="bi bi-eye"></i> Lihat KTP
                                                                         </a>
-                                                                        <a href="#" class="btn btn-warning btn-sm"
+                                                                        <a href="#"
+                                                                            class="btn btn-warning btn-sm"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#edit"
                                                                             wire:click="edit({{ $transaksi->id }})">

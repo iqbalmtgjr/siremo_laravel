@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('alamat');
-            $table->string('no_hp');
             $table->string('logo')->nullable();
             $table->string('status')->default('buka'); // buka, tutup
             $table->integer('valid')->default(0); // 0 (belum divalidasi), 1 (suda divalidasi)

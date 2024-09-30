@@ -66,11 +66,11 @@
                 <!--    </a>-->
                 <!--</div> <!-- /.social-auth-links -->
                 {{-- <p class="mb-1"> <a href="forgot-password.html">I forgot my password</a> </p> --}}
-                <!--<p class="mb-0 mt-3"> -->
-                <!--    <a href="{{ route('register') }}" class="text-center">-->
-                <!--        Belum punya akun? Daftar disini-->
-                <!--    </a> -->
-                <!--</p>-->
+                <p class="mb-0 mt-3">
+                    <a href="{{ route('register') }}" class="text-center">
+                        Ingin daftar sebagai mitra? Daftar disini
+                    </a>
+                </p>
             </div> <!-- /.login-card-body -->
         </div>
     </div> <!-- /.login-box --> <!--begin::Third Party Plugin(OverlayScrollbars)-->
