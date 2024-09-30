@@ -69,8 +69,8 @@ class IndexPenggunaMitra extends Component
             'username' => $this->username,
             'email' => $this->email,
             'no_hp' => $this->no_hp,
-            'password' => Hash::make($this->password),
             'role' => $this->role,
+            'password' => Hash::make('pakaisiremo'),
         ]);
 
         if ($this->ktp != null) {

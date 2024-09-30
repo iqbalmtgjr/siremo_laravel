@@ -10,9 +10,11 @@ use App\Models\Kendaraan;
 use App\Models\Transaksi;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class IndexTransaksi extends Component
 {
@@ -22,6 +24,8 @@ class IndexTransaksi extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $transaksii, $transaksi_ktp, $lihat_ktp, $users, $kendaraans, $total, $paginate = 10;
+
+    public $user, $nama, $username, $email, $no_hp;
 
     public $search;
 
@@ -71,6 +75,41 @@ class IndexTransaksi extends Component
                 'mitra' => Mitra::find(auth()->user()->mitra_id)
             ]
         );
+    }
+
+    public function storePengguna()
+    {
+        $validated = Validator::make(
+            ['nama' => $this->nama, 'username' => $this->username, 'email' => $this->email, 'no_hp' => $this->no_hp],
+            [
+                'nama' => ['required', 'min:3'],
+                'no_hp' => ['required', 'max:13'],
+                'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($this->user)],
+                'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user)],
+                'ktp' => ['image|max:1024'],
+            ],
+        )->validate();
+
+        $pengg = User::create([
+            'mitra_id' => auth()->user()->mitra_id,
+            'nama' => $this->nama,
+            'username' => $this->username,
+            'email' => $this->email,
+            'no_hp' => $this->no_hp,
+            'role' => 'user',
+            'password' => Hash::make('pakaisiremo'),
+        ]);
+
+        if ($this->ktp != null) {
+            $filename = $this->ktp->hashName();
+            $this->ktp->storeAs('pengguna/ktp/', $filename, 'public');
+            $pengg->update(['ktp' => $filename]);
+        }
+
+        $this->reset();
+
+        toastr()->success('Pengguna berhasil ditambahkan');
+        return redirect('/transaksi');
     }
 
     public function store()

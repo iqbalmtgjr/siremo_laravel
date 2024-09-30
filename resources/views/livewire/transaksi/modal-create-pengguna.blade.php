@@ -7,7 +7,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form wire:submit="store">
+                <div class="alert alert-warning" role="alert">
+                    <i class="bi bi-info-circle"></i> Password default :
+                    <strong>pakaisiremo</strong>
+                </div>
+
+                <form wire:submit="storePengguna">
                     @csrf
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
@@ -38,18 +43,6 @@
                         <input type="no_hp" class="form-control" id="no_hp" wire:model="no_hp"
                             placeholder="Masukkan No Hp...">
                         @error('no_hp')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Role</label>
-                        <select class="form-select" id="role" wire:model="role">
-                            <option value="">-- Pilih Role --</option>
-                            <option value="admin_mitra">Admin Mitra</option>
-                            <option value="staff_mitra">Staff Mitra</option>
-                            <option value="user">User</option>
-                        </select>
-                        @error('role')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -94,7 +87,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" wire:click="store">Simpan</button>
+                <button type="button" class="btn btn-primary" wire:click="storePengguna">Simpan</button>
             </div>
             </form>
         </div>

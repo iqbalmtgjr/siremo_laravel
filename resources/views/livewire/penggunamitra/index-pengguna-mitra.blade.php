@@ -15,6 +15,10 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="alert alert-warning" role="alert">
+                                    <i class="bi bi-info-circle"></i> Password default adalah
+                                    <strong>pakaisiremo</strong>
+                                </div>
                                 <div class="card mb-4">
                                     <div class="d-flex justify-content-between align-items-center px-3 pt-3 m-2">
                                         <div class="input-group w-auto">

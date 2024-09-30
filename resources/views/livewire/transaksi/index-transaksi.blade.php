@@ -274,7 +274,7 @@
             </div>
         </div>
     </div>
-    @include('livewire.penggunamitra.modal-create')
+    @include('livewire.transaksi.modal-create-pengguna')
     @include('livewire.transaksi.modal-edit')
     @include('livewire.transaksi.modal-ktp')
     <script type="text/javascript">
