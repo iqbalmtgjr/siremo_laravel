@@ -23,13 +23,13 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="no_hp" class="form-label">No HP</label>
                         <input type="text" class="form-control" id="no_hp" wire:model="no_hp">
                         @error('no_hp')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" id="status" wire:model="status">

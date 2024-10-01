@@ -24,14 +24,14 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="no_hp" class="form-label">No HP</label>
                         <input type="number" class="form-control" id="no_hp" wire:model="no_hp"
                             placeholder="Masukkan no hp...">
                         @error('no_hp')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     {{-- <div class="mb-3">
                         <label for="logo" class="form-label">Logo</label>
                         <input type="file" class="form-control" id="logo" wire:model="logo">
