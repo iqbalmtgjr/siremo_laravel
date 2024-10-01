@@ -50,7 +50,7 @@ class IndexMitra extends Component
             [
                 'mitras'  => $this->search === null ?
                     Mitra::orderBy('valid', 'ASC')->paginate($this->paginate) :
-                    Mitra::where(function ($query) {
+                    Mitra::join('users', 'mitra.id', '=', 'users.mitra_id')->where(function ($query) {
                         $query->where('nama', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('alamat', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('no_hp', 'LIKE', '%' . $this->search . '%');

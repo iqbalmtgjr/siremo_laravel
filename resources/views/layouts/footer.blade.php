@@ -1,7 +1,7 @@
 <footer class="app-footer"> <!--begin::To the end-->
-    <div class="float-end d-none d-sm-inline">Version 1.0</div> <!--end::To the end-->
+    <div class="float-end d-none d-sm-inline">Version 1.0.0</div> <!--end::To the end-->
     <!--begin::Copyright--> <strong>
-        Copyright &copy; 2014-2024&nbsp;
+        Copyright &copy; 2024&nbsp;
         <a href="https://technocloud.id" class="text-decoration-none">Technocloud.id</a>.
     </strong>
     All rights reserved.

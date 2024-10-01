@@ -41,7 +41,7 @@
                                                         <th>Nama</th>
                                                         <th>Logo</th>
                                                         <th>Alamat</th>
-                                                        <th>No Hp</th>
+                                                        <th>No Hp Admin</th>
                                                         <th>Status</th>
                                                         <th>Validasi</th>
                                                         <th style="width: 200px">Aksi</th>
@@ -63,7 +63,11 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>{{ $mitra->alamat }}</td>
-                                                                <td>{{ $mitra->no_hp }}</td>
+                                                                <td>{{ isset(app\Models\User::where('mitra_id', $mitra->id)->where('role', 'admin_mitra')->first()->no_hp)? app\Models\User::where('mitra_id', $mitra->id)->where('role', 'admin_mitra')->first()->no_hp: '-' }}
+                                                                </td>
+                                                                {{-- <td>{{ $mitra->id }}
+                                                                </td> --}}
+                                                                </td>
                                                                 <td>
                                                                     <span
                                                                         class="badge rounded-pill bg-{{ $mitra->status == 'buka' ? 'success' : 'danger' }} text-light">
